@@ -3,5 +3,5 @@ sudo docker run -itd \
     -v $PWD:/src \
     --rm \
     --workdir /src \
-    -p 8089:8089
+    -p 8089:8089 \
     machengcheng/12306
