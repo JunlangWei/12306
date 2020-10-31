@@ -4,4 +4,4 @@ sudo docker run -itd \
     --rm \
     --workdir /src \
     -p 8089:8089 \
-    machengcheng/12306
+    machengcheng/12306:v0.1
