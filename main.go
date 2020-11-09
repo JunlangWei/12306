@@ -1,16 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe("0.0.0.0:8089", nil))
-}
+	gin.SetMode(gin.ReleaseMode)
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
+	router := gin.Default()
+
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+
+	router.Run("0.0.0.0:8089")
 }

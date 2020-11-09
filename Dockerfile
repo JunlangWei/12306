@@ -22,7 +22,16 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install -y dpkg && \
     apt-get install -y unzip && \
     apt-get install -y apt-utils && \
-    apt-get install -y golang-go && \
     apt-get autoremove -y
+
+RUN apt-get install -y git
+
+RUN wget -c https://studygolang.com/dl/golang/go1.15.3.linux-amd64.tar.gz
+RUN tar -C /usr/local -xvf go1.15.3.linux-amd64.tar.gz
+
+ENV PATH $PATH:/usr/local/go/bin
+
+RUN go env -w GO111MODULE=on && \
+    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
 
 ENTRYPOINT [ "go", "run", "/src/main.go" ]
