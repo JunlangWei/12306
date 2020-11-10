@@ -31,6 +31,8 @@
 
 ### 2.2 产品信息结构图 
 
+![](https://github.com/mamachengcheng/12306/blob/main/docs/product_information_structure_diagram.png)
+
 ## 3、全局说明
 
 ## 4、后端接口
