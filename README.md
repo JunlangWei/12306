@@ -1,6 +1,6 @@
 # 铁路12306产品需求文档
 
-## 1. 文档综述
+# 1. 文档综述
 
 ### 1.1 版本修订记录
 
@@ -27,9 +27,13 @@
 
 ### 2.1 产品功能结构图
 
+![](https://github.com/mamachengcheng/12306/blob/main/docs/product_function_ftructure_diagram.png)
+
 ### 2.2 产品信息结构图 
 
-## 3、后端接口
+## 3、全局说明
+
+## 4、后端接口
 
 ### 3.1 外部接口
 
