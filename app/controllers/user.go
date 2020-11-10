@@ -5,12 +5,12 @@ import (
 )
 
 func Login(c *gin.Context)  {
-	name := c.PostForm("name")
+	username := c.PostForm("username")
 	password := c.PostForm("password")
 
 	c.JSON(200, gin.H{
 		"message": "登陆成功",
-		"name": name,
+		"name": username,
 		"password": password,
 	})
 }

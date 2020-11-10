@@ -2,18 +2,15 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/mamachengcheng/12306/app/routers"
 )
 
 func main() {
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 
 	router := gin.Default()
 
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	routers.InitRouter(router)
 
 	router.Run("0.0.0.0:8089")
 }

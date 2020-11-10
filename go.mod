@@ -1,4 +1,4 @@
-module main.go
+module github.com/mamachengcheng/12306
 
 go 1.15
 
