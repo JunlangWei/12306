@@ -16,5 +16,4 @@ func InitRouter(router *gin.Engine)  {
 		v1.POST("/register", controllers.Register)
 	}
 
-	v1.GET("/ticket", )
 }
