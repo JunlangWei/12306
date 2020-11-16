@@ -2,7 +2,13 @@ version: '3'
 services:
   web:
     build: .
+    command: go run main.go
     ports:
       - "5000:8080"
-  redis:
-    image: "redis:latest"
+    volumes:
+      - type: volume
+        source: vol
+        target: /src
+
+volumes:
+  vol:

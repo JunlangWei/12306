@@ -34,4 +34,7 @@ ENV PATH $PATH:/usr/local/go/bin
 RUN go env -w GO111MODULE=on && \
     go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
 
-ENTRYPOINT [ "go", "run", "/src/main.go" ]
+ADD . /src
+WORKDIR /src
+
+#ENTRYPOINT [ "go", "run", "main.go" ]
