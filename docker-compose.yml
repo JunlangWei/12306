@@ -17,6 +17,10 @@ services:
     image: "mysql:latest"
     networks:
       12306-net:
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123456"
+      - "MYSQL_DATABASE=12306"
+      - "TZ=Asia/Shanghai"
 
 networks:
   12306-net:
