@@ -5,10 +5,18 @@ services:
     command: go run main.go
     ports:
       - "5000:8080"
-    volumes:
-      - type: volume
-        source: vol
-        target: /src
+    networks:
+      - 12306-net
 
-volumes:
-  vol:
+  redis:
+    image: "redis:latest"
+    networks:
+      12306-net:
+
+  mysql:
+    image: "mysql:latest"
+    networks:
+      12306-net:
+
+networks:
+  12306-net:

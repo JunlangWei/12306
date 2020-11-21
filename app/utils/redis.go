@@ -8,14 +8,12 @@ import (
 func GetRedisClient() *redis.Client {
 	cfg, _ := ini.Load("app/conf/config.ini")
 
-	mysqlCfg := cfg.Section("redis")
-	address := mysqlCfg.Key("http").String() + ":" + mysqlCfg.Key("port").String()
-	password := mysqlCfg.Key("password").String()
-	db, _ := mysqlCfg.Key("DB").Int()
+	redisCfg := cfg.Section("redis")
+	address := redisCfg.Key("host").String() + ":" + redisCfg.Key("port").String()
+	db, _ := redisCfg.Key("db").Int()
 
 	client := redis.NewClient(&redis.Options{
 		Addr:     address,
-		Password: password,
 		DB:       db,
 	})
 
