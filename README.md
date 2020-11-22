@@ -35,7 +35,7 @@ git clone https://github.com/mamachengcheng/12306.git && docker-compose up
 
 #### 内部接口
 
-[内部接口文档](https://github.com/mamachengcheng/12306/blob/main/docs/API/API.md)
+[内部接口文档](https://github.com/mamachengcheng/12306/blob/main/docs/api/api.md)
 
 #### 外部接口
 

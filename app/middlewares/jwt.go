@@ -3,14 +3,17 @@ package middlewares
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/mamachengcheng/12306/app/resource"
+	"github.com/mamachengcheng/12306/app/utils"
 	"gopkg.in/ini.v1"
+	"net/http"
 	"time"
 )
 
 var jwtSecret = []byte(getSignalKey())
 
 func getSignalKey() string {
-	cfg, _ := ini.Load("conf/config.ini")
+	cfg, _ := ini.Load(resource.ConfFilePath)
 	return cfg.Section("server").Key("sign_key").String()
 }
 
@@ -20,7 +23,7 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
-func GenerateToken(username, password string) (string, error) {
+func GenerateToken(username string) (string, error) {
 	nowTime := time.Now()
 	expireTime := nowTime.Add(12 * time.Hour)
 
@@ -53,20 +56,19 @@ func ParseToken(token string) (*Claims, error) {
 }
 
 func JWTMiddleware() gin.HandlerFunc {
-	return func(context *gin.Context) {
-		token := context.Request.Header.Get("token")
+	return func(c *gin.Context) {
+		token := c.Request.Header.Get("token")
 		claims, err := ParseToken(token)
 		if err == nil {
-			context.Set("claims", claims)
+			c.Set("claims", claims)
+			c.Next()
+		} else {
+			jwtAbort(0, "", c)
 		}
-		context.Next()
 	}
 }
 
-//func jwtAbort(c *gin.Context, msg string) {
-//	c.JSON(http.StatusUnauthorized, gin.H{
-//		"status":  "error",
-//		"message": msg,
-//	})
-//	c.Abort()
-//}
+func jwtAbort(subCode int, msg string, c *gin.Context) {
+	utils.DefaultResponse(http.StatusUnauthorized, subCode, nil, msg, c)
+	c.Abort()
+}

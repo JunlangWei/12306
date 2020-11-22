@@ -24,23 +24,23 @@ type Register struct {
 	Email    string
 }
 
-func (l Login) ValidCheck(context *gin.Context) error {
+func (l Login) ValidCheck(c *gin.Context) error {
 	return nil
 }
 
-func (r Register) ValidCheck(context *gin.Context) error {
+func (r Register) ValidCheck(c *gin.Context) error {
 	return nil
 }
 
-func (l Login) Login(context *gin.Context) (string, error) {
-	l.Username = context.PostForm("username")
-	l.Password = context.PostForm("password")
+func (l Login) Login(c *gin.Context) (string, error) {
+	l.Username = c.PostForm("username")
+	l.Password = c.PostForm("password")
 
 	var user models.User
 	result := utils.MysqlDB.Where("username = ? AND password = ?", l.Username, l.Password).First(&user)
 
 	if !errors.Is(result.Error, gorm.ErrRecordNotFound) {
-		token, err := middlewares.GenerateToken(l.Username, l.Password)
+		token, err := middlewares.GenerateToken(l.Username)
 		return token, err
 	} else {
 		return "", result.Error

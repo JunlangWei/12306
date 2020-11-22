@@ -2,18 +2,23 @@ package utils
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
+type SubStatus struct {
+	Code string
+	Msg  string
+}
+
 type response struct {
-	Code int         `json:"code"` // 业务返回码
+	Code string      `json:"code"` // 业务返回码
 	Data interface{} `json:"data"` //业务返回数据
 	Msg  string      `json:"msg"`  // 业务返回描述
 }
 
-func DefaultResponse(code int, data interface{}, msg string, c *gin.Context) {
-	c.JSON(http.StatusOK, response{
-		Code: code,
+
+func DefaultResponse(code int, subCode string, data interface{}, msg string, c *gin.Context) {
+	c.JSON(code, response{
+		Code: subCode,
 		Data: data,
 		Msg:  msg,
 	})

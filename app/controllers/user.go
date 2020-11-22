@@ -7,22 +7,28 @@ import (
 	"github.com/mamachengcheng/12306/app/utils"
 )
 
+
 func Login(c *gin.Context) {
+	var (
+		loginSuccessSubStatus = utils.SubStatus{Code: "login-success", Msg: "登陆成功"}
+	)
 
-	//login := serializers.Login{}
-	//token, err := login.Login(c)
-
-	utils.DefaultResponse(resource.Success, nil, "登陆成功", c)
+	utils.DefaultResponse(resource.Success, loginSuccessSubStatus.Code,nil, loginSuccessSubStatus.Msg, c)
 }
 
 func Register(c *gin.Context) {
+	var (
+		registerSuccess = utils.SubStatus{Code: "register-success", Msg: "注册成功"}
+		//RegisteredError = utils.SubStatus{Code: "registered-error", Msg: "已注册"}
+	)
+
 
 	user := &models.User{}
 
 	if utils.MysqlDBErr == nil {
 		utils.MysqlDB.Create(&user)
-		utils.DefaultResponse(resource.Success, nil, "注册成功", c)
+		utils.DefaultResponse(resource.Success, registerSuccess.Code, nil, registerSuccess.Msg, c)
 	} else {
-		utils.DefaultResponse(resource.Success, nil, "注册失败", c)
+		utils.DefaultResponse(resource.Success, registerSuccess.Code, nil, registerSuccess.Msg, c)
 	}
 }
