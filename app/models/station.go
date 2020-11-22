@@ -7,13 +7,17 @@ import (
 
 func init() {
 	if utils.MysqlDBErr == nil && !utils.MysqlDB.Migrator().HasTable(&Station{}) {
-		err := utils.MysqlDB.Migrator().CreateTable(&Station{})
-		if err != nil {
-			panic(err)
-		}
+		_ = utils.MysqlDB.Migrator().CreateTable(&Station{})
 	}
 }
 
 type Station struct {
 	gorm.Model
+	Name        string
+	InitialName string
+	Pinyin      string
+	CityId      string
+	CityName    string
+	ShowName    string
+	NameType    string
 }

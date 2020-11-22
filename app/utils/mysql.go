@@ -18,7 +18,7 @@ func init() {
 	mysqlCfg := cfg.Section("mysql")
 	username := mysqlCfg.Key("username").String()
 	password := mysqlCfg.Key("password").String()
-	address := mysqlCfg.Key("http").String() + ":" + mysqlCfg.Key("port").String()
+	address := mysqlCfg.Key("host").String() + ":" + mysqlCfg.Key("port").String()
 	dbname := mysqlCfg.Key("dbname").String()
 
 	dsn := username + ":" + password + "@tcp("+ address + ")/" + dbname + "?charset=utf8mb4&parseTime=True&loc=Local"

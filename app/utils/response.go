@@ -6,15 +6,15 @@ import (
 )
 
 type response struct {
-	Code int         `json:"code"`
-	Data interface{} `json:"data"`
-	Msg  string      `json:"msg"`
+	Code int         `json:"code"` // 业务返回码
+	Data interface{} `json:"data"` //业务返回数据
+	Msg  string      `json:"msg"`  // 业务返回描述
 }
 
-func DefaultResponse(code int, data interface{}, msg string, c *gin.Context)  {
+func DefaultResponse(code int, data interface{}, msg string, c *gin.Context) {
 	c.JSON(http.StatusOK, response{
 		Code: code,
 		Data: data,
-		Msg: msg,
+		Msg:  msg,
 	})
 }

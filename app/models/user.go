@@ -7,10 +7,7 @@ import (
 
 func init() {
 	if utils.MysqlDBErr == nil && !utils.MysqlDB.Migrator().HasTable(&User{}) {
-		err := utils.MysqlDB.Migrator().CreateTable(&User{})
-		if err != nil {
-			panic(err)
-		}
+		_ = utils.MysqlDB.Migrator().CreateTable(&User{})
 	}
 }
 

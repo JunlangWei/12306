@@ -1,3 +1,3 @@
 package resource
 
-var ConfFilePath string = "conf/config.ini"
+var ConfFilePath = "conf/config.ini"
