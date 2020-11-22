@@ -1,22 +1,27 @@
 package utils
 
 import (
+	"context"
 	"github.com/go-redis/redis/v8"
-	"github.com/mamachengcheng/12306/app/common"
+	"github.com/mamachengcheng/12306/app/resource"
 	"gopkg.in/ini.v1"
 )
 
-func GetRedisClient() *redis.Client {
-	cfg, _ := ini.Load(common.ConfFilePath)
+var (
+	RedisDB *redis.Client
+	RedisDBCtx context.Context
+)
+
+func init() {
+	cfg, _ := ini.Load(resource.ConfFilePath)
 
 	redisCfg := cfg.Section("redis")
 	address := redisCfg.Key("host").String() + ":" + redisCfg.Key("port").String()
 	db, _ := redisCfg.Key("db").Int()
 
-	client := redis.NewClient(&redis.Options{
+	RedisDB = redis.NewClient(&redis.Options{
 		Addr:     address,
 		DB:       db,
 	})
-
-	return client
+	RedisDBCtx = context.Background()
 }
