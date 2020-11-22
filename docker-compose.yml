@@ -4,23 +4,26 @@ services:
     build: .
     command: go run main.go
     ports:
-      - "5000:8080"
+      - 5000:8080
     networks:
       - 12306-net
 
   redis:
-    image: "redis:latest"
+    image: redis:latest
     networks:
       12306-net:
 
   mysql:
-    image: "mysql:latest"
+    image: mysql:latest
+    restart: always
     networks:
-      12306-net:
+      - 12306-net
     environment:
-      - "MYSQL_ROOT_PASSWORD=123456"
-      - "MYSQL_DATABASE=12306"
-      - "TZ=Asia/Shanghai"
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: 12306
+      TZ: Asia/Shanghai
+    ports:
+      - 3306:3306
 
 networks:
   12306-net:

@@ -13,6 +13,6 @@ func InitRouter(router *gin.Engine) {
 
 	//v1.Use(middlewares.JWTMiddleware())
 	//{
-	v1.GET("/test_redis", controllers.TestRedis)
+	//v1.GET("/test_redis", controllers.TestRedis)
 	//}
 }

@@ -17,7 +17,6 @@ func getSignalKey() string {
 	return cfg.Section("server").Key("sign_key").String()
 }
 
-
 type Claims struct {
 	Username string `json:"username"`
 	jwt.StandardClaims
@@ -56,6 +55,10 @@ func ParseToken(token string) (*Claims, error) {
 }
 
 func JWTMiddleware() gin.HandlerFunc {
+	var (
+		invalidAuthTokenError = utils.SubStatus{Code: "invalid-auth-token-error", Msg: "请正确输入用户名或密码"}
+	)
+
 	return func(c *gin.Context) {
 		token := c.Request.Header.Get("token")
 		claims, err := ParseToken(token)
@@ -63,12 +66,12 @@ func JWTMiddleware() gin.HandlerFunc {
 			c.Set("claims", claims)
 			c.Next()
 		} else {
-			jwtAbort(0, "", c)
+			jwtAbort(invalidAuthTokenError, c)
 		}
 	}
 }
 
-func jwtAbort(subCode int, msg string, c *gin.Context) {
-	utils.DefaultResponse(http.StatusUnauthorized, subCode, nil, msg, c)
+func jwtAbort(subCode utils.SubStatus, c *gin.Context) {
+	utils.DefaultResponse(http.StatusUnauthorized, subCode.Code, nil, subCode.Msg, c)
 	c.Abort()
 }
