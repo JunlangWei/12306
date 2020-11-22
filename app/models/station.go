@@ -13,11 +13,11 @@ func init() {
 
 type Station struct {
 	gorm.Model
-	Name        string
-	InitialName string
-	Pinyin      string
-	CityId      string
-	CityName    string
-	ShowName    string
-	NameType    string
+	Name        string `gorm:"not null;unique"`
+	InitialName string `gorm:"not null;unique"`
+	Pinyin      string `gorm:"not null;unique"`
+	CityId      string `gorm:"not null;unique"`
+	CityName    string `gorm:"not null;unique"`
+	ShowName    string `gorm:"not null;unique"`
+	NameType    string `gorm:"not null;unique"`
 }

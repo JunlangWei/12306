@@ -21,4 +21,3 @@ type User struct {
 	Type     string `gorm:"not null"`
 	Email    string `gorm:"not null;unique"`
 }
-
