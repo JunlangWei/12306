@@ -1,14 +1,27 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"github.com/mamachengcheng/12306/app/utils"
+	"gorm.io/gorm"
+)
+
+func init() {
+	if utils.MysqlDBErr == nil && !utils.MysqlDB.Migrator().HasTable(&User{}) {
+		err := utils.MysqlDB.Migrator().CreateTable(&User{})
+		if err != nil {
+			panic(err)
+		}
+	}
+}
 
 type User struct {
 	gorm.Model
-	UserName string
-	PassWord string
-	IDCard   string
-	Name     string
-	Phone    string
-	Type     string
-	Email    *string
+	Username string `gorm:"not null;unique"`
+	Password string `gorm:"not null"`
+	IDCard   string `gorm:"not null;unique"`
+	Name     string `gorm:"not null"`
+	Phone    string `gorm:"not null;unique"`
+	Type     string `gorm:"not null"`
+	Email    string `gorm:"not null;unique"`
 }
+

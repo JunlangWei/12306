@@ -1,21 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/mamachengcheng/12306/app/common"
 	"github.com/mamachengcheng/12306/app/routers"
 	"gopkg.in/ini.v1"
-	"os"
 )
 
 func main() {
-	cfg, err := ini.Load("app/conf/config.ini")
-	server := cfg.Section("server")
+	cfg, err := ini.Load(common.ConfFilePath)
 
 	if err != nil {
-		fmt.Printf("Fail to read file: %v", err)
-		os.Exit(1)
+		panic(err)
 	}
+
+	server := cfg.Section("server")
 
 	gin.SetMode(gin.DebugMode)
 

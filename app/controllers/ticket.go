@@ -4,12 +4,15 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
+	"github.com/mamachengcheng/12306/app/middlewares"
 	"github.com/mamachengcheng/12306/app/utils"
 )
 
 var ctx = context.Background()
 
 func TestRedis(c *gin.Context) {
+	claims := c.MustGet("claims").(*middlewares.Claims)
+
 	redisClient := utils.GetRedisClient()
 
 	err := redisClient.Get(ctx, "key").Err()
@@ -24,5 +27,6 @@ func TestRedis(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"message": val,
+		"name": claims.Username,
 	})
 }
