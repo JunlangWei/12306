@@ -18,7 +18,7 @@
 ### 部署项目
 
 ```shell
-docker-compose up
+git clone https://github.com/mamachengcheng/12306.git && docker-compose up
 ```
 
 ## 项目文档
